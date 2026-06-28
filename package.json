@@ -1,5 +1,5 @@
 {
-    "author": "Eric Gurt",
+    "author": "Eric Gurt <eric-gurt@noreply>",
     "name": "Plazma-Burst-3",
     "version": "0.0.26",
     "description": "Plazma Burst 3 browser game wrapper with additional features",
@@ -7,40 +7,27 @@
     "scripts": {
         "start": "electron --inspect=9230 . --enable-logging",
         "startlocal": "electron --PB3_FORCE_LOCALHOST --inspect=9230 . --enable-logging",
-        "build": "electron-builder --win --x64",
-        "release": "electron-builder --win --x64 --publish always"
+        "build": "electron-builder --win --linux --x64",
+        "release": "electron-builder --win --linux --x64 --publish always"
     },
     "dependencies": {
         "electron-updater": "^6.6.2",
         "ws": "^8.14.2"
     },
     "devDependencies": {
-        "electron": "^39.2.7",
+        "electron": "39.2.7",
         "electron-builder": "^24.13.3"
     },
     "build": {
         "appId": "com.ericgurt.plazmaburst3",
         "productName": "Plazma Burst 3",
-        "win": {
-            "target": [
-                "nsis"
-            ],
-            "icon": "build/icon.ico",
-            "publisherName": "Eric Gurt",
-            "artifactName": "Plazma Burst 3.${ext}",
-            "verifyUpdateCodeSignature": false
-        },
-        "portable": {
-            "artifactName": "Plazma Burst 3.exe"
-        },
+        "electronVersion": "39.2.7",
         "directories": {
             "buildResources": "build"
         },
         "files": [
             "electron-main.js",
             "preload.js",
-            "build/icon.png",
-            "build/icon.ico",
             "node_modules/ws/**/*"
         ],
         "asarUnpack": [
@@ -49,6 +36,21 @@
         "extraMetadata": {
             "main": "electron-main.js"
         },
+        "publish": {
+            "provider": "github",
+            "owner": "Eric-Gurt",
+            "repo": "PlazmaBurst3",
+            "releaseType": "release"
+        },
+        "win": {
+            "target": [
+                "nsis",
+                "portable"
+            ],
+            "publisherName": "Eric Gurt",
+            "artifactName": "Plazma Burst 3.${ext}",
+            "verifyUpdateCodeSignature": false
+        },
         "nsis": {
             "artifactName": "Plazma Burst 3 setup.exe",
             "oneClick": false,
@@ -56,16 +58,19 @@
             "createDesktopShortcut": true,
             "createStartMenuShortcut": true,
             "runAfterFinish": true,
-            "installerIcon": "build/icon.ico",
-            "uninstallerIcon": "build/icon.ico",
             "allowElevation": true,
             "perMachine": false
         },
-        "publish": {
-            "provider": "github",
-            "owner": "Eric-Gurt",
-            "repo": "PlazmaBurst3",
-            "releaseType": "release"
+        "portable": {
+            "artifactName": "Plazma Burst 3.exe"
+        },
+        "linux": {
+            "target": [
+                "AppImage",
+                "deb"
+            ],
+            "category": "Game",
+            "artifactName": "Plazma Burst 3.${ext}"
         }
     }
 }
